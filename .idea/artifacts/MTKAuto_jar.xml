@@ -6,7 +6,6 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="MTKAuto" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../mtkauto/sqlite-jdbc-3.23.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
