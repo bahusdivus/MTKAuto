@@ -18,9 +18,10 @@ import java.io.*;
 /**
  * Main working class.
  * TODO: May be, separate Parts and TOs completely
- * TODO: Extract showDialog() from inner class to separate function 
+ * TODO: Extract showDialog() from inner class to separate function
  */
-@SuppressWarnings("ALL")
+
+@SuppressWarnings("ResultOfMethodCallIgnored")
 class MTKFrame extends JFrame {
 
     private DeleteCellRenderer deleteCellRenderer = new DeleteCellRenderer();
@@ -754,7 +755,7 @@ class MTKFrame extends JFrame {
                 panel.add(date = new JTextField(""));
 
                 panel.add(new JLabel("Пробег, км:"));
-                panel.add(odometr = new JTextField(""));
+                panel.add(odometr = new JTextField("0"));
 
                 add(panel, BorderLayout.CENTER);
 

@@ -114,7 +114,7 @@ class DbHandler {
             if (id != 0) {
                 statement.execute("UPDATE cars SET number = '" + car.getNumber() + "' WHERE id = " + id);
             } else {
-                statement.execute("INSERT INTO cars (number) VALUES ('" + car.getNumber() + "')");
+                statement.execute("INSERT INTO cars (number, deleted) VALUES ('" + car.getNumber() + "', 0)");
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Exception: ", e);
@@ -177,7 +177,7 @@ class DbHandler {
                         + "odometr = " + part.getOdometr()
                         + " WHERE id = " + id);
             } else {
-                statement.execute("INSERT INTO parts (car_id, type, name, value, price, dealer, date, odometr) VALUES ("
+                statement.execute("INSERT INTO parts (car_id, type, name, value, price, dealer, date, odometr, deleted) VALUES ("
                         + part.getCarId() + ", "
                         + part.getType() + ", "
                         + "'" + part.getName() + "', "
@@ -185,7 +185,7 @@ class DbHandler {
                         + part.getPrice() + ", "
                         + "'" + part.getDealer() + "', "
                         + part.getDate().getTime() + ", "
-                        + part.getOdometr() + ")");
+                        + part.getOdometr() + ", 0)");
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception: ", e);
@@ -235,13 +235,13 @@ class DbHandler {
                         + "appointment = " + to.getAppointment()
                         + " WHERE id = " + id);
             } else {
-                statement.execute("INSERT INTO `tos` (car_id, name, model, date, odometr, appointment) VALUES ("
+                statement.execute("INSERT INTO `tos` (car_id, name, model, date, odometr, appointment, deleted) VALUES ("
                         + to.getCarId() + ", "
                         + "'" + to.getName() + "', "
                         + "'" + to.getModel() + "', "
                         + to.getDate().getTime() + ", "
                         + to.getOdometr() + ", "
-                        + to.getAppointment() + ")");
+                        + to.getAppointment() + ", 0)");
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Exception: ", e);
