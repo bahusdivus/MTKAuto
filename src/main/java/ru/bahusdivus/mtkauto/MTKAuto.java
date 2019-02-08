@@ -1,9 +1,5 @@
 package ru.bahusdivus.mtkauto;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.*;
-import java.util.*;
 import java.util.logging.*;
 import java.io.*;
 import java.awt.*;
@@ -29,7 +25,7 @@ public class MTKAuto {
     }
     
     EventQueue.invokeLater(() -> {
-      MTKFrame frame = new MTKFrame();
+      MtkJFrame frame = new MtkJFrame();
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       Logger.getLogger(MTKAuto.class.getName()).fine("Showing frame");
       frame.setVisible(true);
