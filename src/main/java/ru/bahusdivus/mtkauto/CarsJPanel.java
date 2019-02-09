@@ -55,5 +55,9 @@ class CarsJPanel extends JPanel {
         return activeCarBtn;
     }
 
+    void deleteActiveCar() {
+        dbHandler.deleteCar(activeCarBtn);
+        makeCarButtons();
+    }
 
 }
