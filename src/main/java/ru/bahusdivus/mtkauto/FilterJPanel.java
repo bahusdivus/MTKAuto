@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
-public class FilterJPanel extends JPanel {
+class FilterJPanel extends JPanel {
     private JTextField fromDate;
     private JTextField toDate;
     private JLabel resultLbl;
@@ -36,7 +36,6 @@ public class FilterJPanel extends JPanel {
 
     String getFromText() {
         return fromDate.getText();
-
     }
 
     String getToText() {

@@ -142,7 +142,9 @@ class DbHandler {
     List<Part> getParts(int carId, int type) {
         try (Statement statement = this.connection.createStatement()) {
             List<Part> parts = new ArrayList<>();
-            ResultSet resultSet = statement.executeQuery("SELECT id, car_id, type, name, value, price, dealer, date, odometr FROM parts WHERE deleted = 0 AND car_id = " + carId + " AND type = " + type);
+            //This query contains bad thing - (type + 1). When I'll find the way to alter data on production DB, I'll remove this "+1" away
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT id, car_id, type, name, value, price, dealer, date, odometr FROM parts WHERE deleted = 0 AND car_id = " + carId + " AND type = " + (type + 1) );
             while (resultSet.next()) {
                 parts.add(new Part(
                         resultSet.getInt("id"),

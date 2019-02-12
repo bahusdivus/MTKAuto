@@ -32,4 +32,8 @@ class StateJPanel extends JPanel {
         topButtons[currentButton].setEnabled(false);
     }
 
+    int getActiveTopButton() {
+        return currentButton;
+    }
+
 }
