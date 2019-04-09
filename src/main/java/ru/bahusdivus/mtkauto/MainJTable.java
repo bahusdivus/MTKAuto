@@ -3,10 +3,7 @@ package ru.bahusdivus.mtkauto;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableRowSorter;
+import javax.swing.table.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +27,45 @@ public class MainJTable extends JTable {
         }
 
         populateTable();
+        setProperties();
+    }
 
+    void populateTable() {
+        if (carPanel.getActiveCarBtn() != 0) {
+            AbstractPartsAndToTableModel tableModel;
+            if (topPanel.getActiveTopButton() != 3) {
+                tableModel = new PartsTableModel(dbHandler.getParts(carPanel.getActiveCarBtn(), topPanel.getActiveTopButton()));
+            } else {
+                tableModel = new ToTableModel(dbHandler.getTOByCarId(carPanel.getActiveCarBtn()));
+            }
+
+            int mdlRowCount = tableModel.getRowCount();
+            if (mdlRowCount > 0) {
+                setModel(tableModel);
+                //Movinge ID columt to the end. There will be "delete" button. May be better do it in Parts and TO classes
+                moveColumn(0, getColumnCount() - 1);
+
+                //Setting sorter
+                tableRowSorter = new TableRowSorter<>(tableModel);
+                setRowSorter(tableRowSorter);
+
+                TableColumnModel tcm = getColumnModel();
+                //Setting renderer and editor for last column. This convert cell into "Delete" button
+                tcm.getColumn(getColumnCount() - 1).setCellRenderer(new DeleteCellRenderer());
+                tcm.getColumn(getColumnCount() - 1).setCellEditor(new DeleteCellEditor());
+                //Remove unnecessary columns
+                if (topPanel.getActiveTopButton() != 3) tcm.removeColumn(tcm.getColumn(1));
+                tcm.removeColumn(tcm.getColumn(0));
+            } else {
+                setModel(new DefaultTableModel());
+            }
+        } else {
+            setModel(new DefaultTableModel());
+        }
+
+    }
+
+    private void setProperties() {
         //Setting table properties. Height is questionable, must fill all space
         setPreferredScrollableViewportSize(new Dimension(getPreferredSize().width, 370));
         setFillsViewportHeight(true);
@@ -51,40 +86,6 @@ public class MainJTable extends JTable {
         setAutoCreateRowSorter(true);
         putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         setDefaultEditor(Date.class, new DateEditor());
-
-    }
-
-    void populateTable() {
-
-        AbstractPartsAndToTableModel tableModel;
-        if (topPanel.getActiveTopButton() != 3) {
-            tableModel = new PartsTableModel(dbHandler.getParts(carPanel.getActiveCarBtn(), topPanel.getActiveTopButton()));
-        } else {
-            tableModel = new ToTableModel(dbHandler.getTOByCarId(carPanel.getActiveCarBtn()));
-        }
-
-        int mdlRowCount = tableModel.getRowCount();
-        if (mdlRowCount > 0) {
-            setModel(tableModel);
-            //Movinge ID columt to the end. There will be "delete" button. May be better do it in Parts and TO classes
-            moveColumn(0, getColumnCount() - 1);
-
-            //Setting sorter
-            tableRowSorter = new TableRowSorter<>(tableModel);
-            setRowSorter(tableRowSorter);
-
-            TableColumnModel tcm = getColumnModel();
-            //Setting renderer and editor for last column. This convert cell into "Delete" button
-            tcm.getColumn(getColumnCount() - 1).setCellRenderer(new DeleteCellRenderer());
-            tcm.getColumn(getColumnCount() - 1).setCellEditor(new DeleteCellEditor());
-            //Remove unnecessary columns
-            if (topPanel.getActiveTopButton() != 3) tcm.removeColumn(tcm.getColumn(1));
-            tcm.removeColumn(tcm.getColumn(0));
-        } else {
-            setModel(new DefaultTableModel());
-        }
-
-
     }
 
     public TableRowSorter<AbstractPartsAndToTableModel> getRowSorter () {

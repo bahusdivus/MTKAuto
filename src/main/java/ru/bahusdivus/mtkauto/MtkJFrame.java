@@ -342,10 +342,18 @@ class MtkJFrame extends JFrame {
             if (newRowDialog.showDialog(MtkJFrame.this)) {
                 if (topPanel.getActiveTopButton() != 3) {
                     Part part = newRowDialog.getPart();
-                    ((PartsTableModel) table.getModel()).addRow(part);
+                    if (table.getModel().getRowCount() == 0) {
+                        dbHandler.savePart(part);
+                        table.populateTable();
+                    }
+                    else ((PartsTableModel) table.getModel()).addRow(part);
                 } else {
                     TO to = newRowDialog.getTO();
-                    ((ToTableModel) table.getModel()).addRow(to);
+                    if (table.getModel().getRowCount() == 0) {
+                        dbHandler.saveTO(to);
+                        table.populateTable();
+                    }
+                    else ((ToTableModel) table.getModel()).addRow(to);
                 }
             }
         }

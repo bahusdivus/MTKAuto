@@ -29,7 +29,8 @@ class ToTableModel extends AbstractPartsAndToTableModel {
     }
 
     public int getRowCount() {
-        return data.size();
+        if (data == null) return 0;
+        else return data.size();
     }
 
     public String getColumnName(int col) {

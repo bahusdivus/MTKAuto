@@ -1,16 +1,8 @@
 package ru.bahusdivus.mtkauto;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
-public abstract class AbstractPartsAndToTableModel extends AbstractTableModel {
-
-    public abstract int getColumnCount();
-
-    public abstract int getRowCount();
-
-    public abstract String getColumnName(int col);
-
-    public abstract Object getValueAt(int row, int col);
+public abstract class AbstractPartsAndToTableModel extends DefaultTableModel {
 
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
@@ -20,7 +12,6 @@ public abstract class AbstractPartsAndToTableModel extends AbstractTableModel {
         return true;
     }
 
-    public abstract void setValueAt(Object value, int row, int col);
 
     public abstract void addRow(Object object);
 }

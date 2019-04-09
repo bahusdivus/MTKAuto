@@ -10,7 +10,7 @@ class CarsJPanel extends JPanel {
 
     private Map<Integer, JButton> carButtons = new HashMap<>();
     private DbHandler dbHandler;
-    private Integer activeCarBtn;
+    private int activeCarBtn;
     private ActionListener listener;
 
     CarsJPanel(ActionListener listener) {
@@ -26,7 +26,7 @@ class CarsJPanel extends JPanel {
     void makeCarButtons () {
         removeAll();
         carButtons.clear();
-        activeCarBtn = null;
+        activeCarBtn = 0;
 
         List<Car> cars = dbHandler.getCars();
         for (Car car : cars) {
@@ -35,7 +35,7 @@ class CarsJPanel extends JPanel {
             button.setActionCommand(Integer.toString(car.getId()));
             add(button);
             carButtons.put(car.getId(), button);
-            if (activeCarBtn == null) {
+            if (activeCarBtn == 0) {
                 button.setEnabled(false);
                 activeCarBtn = car.getId();
             }

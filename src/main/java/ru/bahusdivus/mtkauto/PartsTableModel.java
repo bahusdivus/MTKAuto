@@ -31,7 +31,8 @@ class PartsTableModel extends AbstractPartsAndToTableModel {
     }
 
     public int getRowCount() {
-        return data.size();
+        if (data == null) return 0;
+        else return data.size();
     }
 
     public String getColumnName(int col) {
@@ -39,7 +40,8 @@ class PartsTableModel extends AbstractPartsAndToTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        return data.get(row).getPropertyByN(col);
+        if (getRowCount() == 0) return null;
+        else return data.get(row).getPropertyByN(col);
     }
 
     public void setValueAt(Object value, int row, int col) {
